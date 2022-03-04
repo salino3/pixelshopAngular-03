@@ -1,5 +1,5 @@
 export interface Product {
-  tile?: string;
+  title?: string;
   description?: string;
   price?: number;
   picture?: string;

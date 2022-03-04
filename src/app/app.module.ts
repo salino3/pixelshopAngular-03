@@ -3,10 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StatefulComponent } from './stateful/stateful.component';
+import { StatelessComponent } from './stateless/stateless.component';
+import { ConfirmComponent } from './confirm/confirm.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StatefulComponent,
+    StatelessComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
