@@ -4,11 +4,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": false,
-    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "noImplicitOverride": false,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": false,
     "sourceMap": true,
     "declaration": false,
@@ -27,6 +27,7 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": false,
     "strictInputAccessModifiers": false,
-    "strictTemplates": false
+    "strictTemplates": false,
+    "strictNullChecks": false
   }
 }
