@@ -1,47 +1,94 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { Product } from '../interface/product';
-import { Shop } from '../models/shop.model';
+
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-stateful',
   templateUrl: './stateful.component.html',
   styleUrls: ['./stateful.component.css'],
 })
-export class StatefulComponent implements OnInit {
-  
+export class StatefulComponent implements OnInit, OnDestroy {
   @ViewChild(ConfirmComponent, {
-    static: false
-  }) confirmChild: ConfirmComponent | undefined ;
+    static: false,
+  })
+  confirmChild!: ConfirmComponent;
 
-  shopModel: Shop = new Shop();
+  cursomatriculado: any;
+  shopModel: any;
+  errorHttp: boolean = false;
   boughtItems: Array<Product> = [];
   boughtItem: any;
-  _confirmChild: any;
+
   isDisabled: boolean = false;
 
-  constructor() {
+  @Inject(HttpResponse)
+  private shopSubscription!: Subscription;
+
+  constructor(private http: HttpClient) {
     this.boughtItems = [];
+    this.shopModel = { shopItems: [] };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.shopSubscription = this.http.get('assets/cursos.json').subscribe(
+      (respuesta: any): void => {
+        this.shopModel.shopItems = respuesta;
+      },
+      (_respuesta: Response) => {
+        this.errorHttp = true;
+      }
+    );
+
+    /*
+   this.onGlobalKeyboard();
+    */
+
+  }
+  ngOnDestroy(): void {
+    this.shopSubscription.unsubscribe();
+    document.removeEventListener('keypress', this.onKeyboard);
+  }
 
   clickItem(_curso: Product): void {
     this.boughtItems.push(_curso);
   }
 
-  
-  cursoMatriculado(_event: Product): void{
+  cursoMatriculado(_event: Product): void {
     this.clickItem(_event);
-    this._confirmChild.isDisabled = false;
+    this.onConfirm();
+ 
+    this.confirmChild.isDisabled = false;
   }
   finalPrice() {
     if (this.boughtItems) {
       return this.boughtItems.reduce(
-        (prev: any, item: any | Product): any => prev + item.price, 0
+        (prev: any, item: any | Product): any => prev + item.price,
+        0
       );
     }
   }
+
+  onConfirm() {
+    alert('Has añadido un nuevo curso');
+  }
+
+  onKeyboard(_event: any) {
+    console.log(_event);
+    if(_event.key === 'Enter'){
+      this.onConfirm();
+    }
+  }
+  /*
+  onGlobalKeyboard(){
+    document.addEventListener('keypress', (eventoGlobal) =>{
+      this.onKeyboard(eventoGlobal);
+    })
+  } */
+
 }
 
 
