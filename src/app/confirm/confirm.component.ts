@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./confirm.component.css'],
 })
 export class ConfirmComponent implements OnInit {
+
+  
   isDisabled: boolean = false;
   showModal: boolean = false;
   constructor() {
