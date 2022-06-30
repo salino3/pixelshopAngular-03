@@ -1,24 +1,39 @@
 <section id="forms">
- <header>
-     <h1>Form elements</h1>
- </header>
- <form [formGroup]="formulario" (ngSubmit)="onSubmit(formulario)" novalidate>
-     <fieldset id="forms_input">
-        <legend>Input fields</legend>
-        <p>
-            <label for="user">Usuario:&nbsp; </label>
-            <input title="tit1" formControlName="user">
-         </p>
-         <p>
-            <label for="password">Password:&nbsp; </label>
-            <input title="tit2" formControlName="password">
-         </p>
-          <p>
-            <label for="url">URL:&nbsp; </label>
-            <input title="url1" formControlName="url">
-         </p>
-          <span id="span1" *ngIf="formulario.get('user')hasError('required')" >Este campo es requerido</span>
-           {{formulario.controls.user.errors | json}}
+  <header>
+    <h1>Form elements</h1>
+  </header>
+  <form
+    class="container"
+    [formGroup]="formulario"
+    (ngSubmit)="onSubmit(formulario)"
+    novalidate
+  >
+    <fieldset class="" id="forms_input">
+      <legend>Input fields</legend>
+      <div class="row">
+        <label class="form-label col col-md-9 col-sm-6" for="user"
+          >Usuario</label
+        >
+        <input
+          class="form-control col col-md-3 col-sm-6"
+          title="tit1"
+          formControlName="user"
+        />
+      </div>
+      <p>
+        <label class="form-label" for="password">Password</label>
+        <input title="tit2" formControlName="password" />
+      </p>
+      <p>
+        <label class="form-label" for="email">URL</label>
+        <input class="form-control" title="url1" formControlName="url" />
+      </p>
+      <span
+        class="form-control"
+        *ngIf="formulario.get('user')hasError('required')"
+        >Este campo es requerido</span
+      >
+      {{ formulario.controls.user.errors | json }}
 
       <p>
         <button
